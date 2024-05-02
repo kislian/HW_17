@@ -1,31 +1,23 @@
 package pro.sky.calculator;
 
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Service;
 
-import static java.lang.Integer.parseInt;
+@Service
 
 public class CalculatorService {
-    public String welcome() {
-        return "<b><u>Welcome in  calculator</u></b>";
-    }
-
-    public Boolean verifiValue(Integer valueFirst, Integer valueSecond) {
-        return (valueFirst == null || valueSecond == null);
-    }
-
-    public int plus(@RequestParam("num1") int valueFirst, @RequestParam("num2") int valueSecond) {
+    public int plus( int valueFirst,  int valueSecond) {
         return valueFirst + valueSecond;
     }
 
-    public int minus(@RequestParam("num1") int valueFirst, @RequestParam("num2") int valueSecond) {
+    public int minus( int valueFirst, int valueSecond) {
         return valueFirst - valueSecond;
     }
 
-    public int multiply(@RequestParam("num1") int valueFirst, @RequestParam("num2") int valueSecond) {
+    public int multiply( int valueFirst,  int valueSecond) {
         return valueFirst * valueSecond;
     }
 
-    public int divide(@RequestParam("num1") int valueFirst, @RequestParam("num2") int valueSecond) {
+    public int divide( int valueFirst,  int valueSecond) {
 
         return valueFirst / valueSecond;
     }

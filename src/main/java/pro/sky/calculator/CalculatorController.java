@@ -15,17 +15,21 @@ public class CalculatorController {
     private static final String DIVIDE_BY_ZERO = "divide by Zero";
     private static final  String MESS = "один (оба) из параметров не определён(ы)";
 
-    private CalculatorService service = new CalculatorService();
+    private final CalculatorService service;
+
+    public CalculatorController(CalculatorService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public String calculator() {
-        return service.welcome();
+        return welcome();
     }
 
     @GetMapping(path = "/plus")
     public String plus(@RequestParam(value = "num1", required = false)
                        Integer valueFirst, @RequestParam(value = "num2", required = false) Integer valueSecond) {
-        if (service.verifiValue(valueFirst, valueSecond) == true) {
+        if (verifiValue(valueFirst, valueSecond) == true) {
             return MESS;
         } else {
             return valueFirst + " + " + valueSecond + "=" + service.plus(valueFirst, valueSecond);
@@ -35,16 +39,16 @@ public class CalculatorController {
     @GetMapping(path = "/minus")
     public String minus(@RequestParam(value = "num1", required = false) Integer valueFirst, @RequestParam(value = "num2",
             required = false) Integer valueSecond) {
-        if (service.verifiValue(valueFirst, valueSecond) == true) {
+        if (verifiValue(valueFirst, valueSecond) == true) {
             return MESS;
         }
-        return valueFirst + " = " + valueSecond + "=" + service.minus(valueFirst, valueSecond);
+        return valueFirst + " - " + valueSecond + "=" + service.minus(valueFirst, valueSecond);
     }
 
     @GetMapping(path = "/multiply")
     public String multiply(@RequestParam(value = "num1", required = false) Integer valueFirst, @RequestParam(value =
             "num2", required = false) Integer valueSecond) {
-        if (service.verifiValue(valueFirst, valueSecond) == true) {
+        if (verifiValue(valueFirst, valueSecond) == true) {
             return MESS;
         }
         return valueFirst + " * " + valueSecond + "=" + service.multiply(valueFirst, valueSecond);
@@ -53,13 +57,19 @@ public class CalculatorController {
     @GetMapping(path = "/divide")
     public String divide(@RequestParam(value = "num1", required = false) Integer valueFirst, @RequestParam(value = "num2"
             , required = false) Integer valueSecond) {
-        if (service.verifiValue(valueFirst, valueSecond) == true) {
+        if (verifiValue(valueFirst, valueSecond) == true) {
             return MESS;
         }
         if (valueSecond == 0) {
             return DIVIDE_BY_ZERO;
         }
         return valueFirst + " / " + valueSecond + "=" + service.divide(valueFirst, valueSecond);
+    }
+    public String welcome() {
+        return "<b><u>Welcome in  calculator</u></b>";
+    }
+    public Boolean verifiValue(Integer valueFirst, Integer valueSecond) {
+        return (valueFirst == null || valueSecond == null);
     }
 }
 
